@@ -5,9 +5,9 @@ services:
     image: postgres:14
     container_name: pg-wikijs
     environment:
-      POSTGRES_DB: ${{ POSTGRES_DB }}
-      POSTGRES_PASSWORD: ${{ POSTGRES_PASSWORD }}
-      POSTGRES_USER: ${{ POSTGRES_USER }}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
     restart: unless-stopped
     volumes:
       - db-data:/var/lib/postgresql/data
@@ -25,13 +25,13 @@ services:
       DB_TYPE: postgres
       DB_HOST: db
       DB_PORT: 5432
-      DB_USER: ${{ POSTGRES_USER }}
-      DB_PASS: ${{ POSTGRES_PASSWORD }}
-      DB_NAME: ${{ POSTGRES_DB }}
+      DB_USER: ${POSTGRES_USER}
+      DB_PASS: ${POSTGRES_PASSWORD}
+      DB_NAME: ${POSTGRES_DB}
     restart: unless-stopped
     labels:
     - traefik.enable=true
-    - traefik.http.routers.wiki.rule=Host(`wiki.${{ DOMAIN }}`)
+    - traefik.http.routers.wiki.rule=Host(`wiki.${DOMAIN}`)
     networks:
       - wiki-internal
       - proxy
